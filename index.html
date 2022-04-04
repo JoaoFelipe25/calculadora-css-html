@@ -1,0 +1,267 @@
+<html>
+<head>
+    <title>Calculadora by Joao Felipe</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="calculadora.css">
+    <script>
+
+        var digitoAnterior = "";
+
+        function capturaTeclas() {
+
+            document.body.addEventListener('keypress', function (event) {
+                
+                const key = event.key;
+
+                if (key >= 0 && key<10) {
+                    eval('document.getElementById("botao_'+ key +'").classList.add("fundoLaranja")');
+    
+                    valida(key);
+
+                } else if(key=="X" || key=="x") {
+                   document.getElementById("botao_x").classList.add("fundoLaranja");
+    
+                    valida("*");
+                }        
+
+                //console.log(`Key: ${key}, Code ${code}`);
+            });
+
+            document.body.addEventListener('keypress', function (event) {
+                
+                const key = event.key;
+
+                if (key >= 0 && key<10) {
+                    eval('document.getElementById("botao_'+ key +'").classList.add("fundoLaranja")');
+    
+                    valida(key);
+
+                } else if(key=="+" || key=="+") {
+                   document.getElementById("botao_mais").classList.add("fundoLaranja");
+    
+                    valida("+");
+                }                     
+            });
+            
+            document.body.addEventListener('keyup', function (event) {
+                
+                const key = event.key;
+
+                eval('document.getElementById("botao_'+ key +'").classList.remove("fundoLaranja")');
+    
+
+            });                                                      
+
+
+        }
+
+        function valida(digito) { 
+
+            var validacao = true;
+
+            if (digito*1!=digito) {
+
+               if (digitoAnterior*1!=digitoAnterior) {
+                    alert("Operação invalida");
+                    validacao = false;
+               }
+            } 
+
+            if (validacao) {
+                document.getElementById("operacao_text").value +=  "" + digito;
+                digitoAnterior = digito;
+            }
+
+            /**
+            var numero1 = document.getElementById("numero1").value;
+            var numero2 = document.getElementById("numero2").value;
+            var erro = false;
+           
+            if (numero1=="") {
+                document.getElementById("mensagem").innerHTML = "Informe o primeiro numero ";
+                document.querySelector('input#numero1').classList.add("erro");
+                erro = true;
+                        
+            } else if  (numero2=="") {
+                document.getElementById("mensagem").innerHTML = "Informe o segundo numero ";
+                document.querySelector('input#numero2').classList.add("erro");
+                erro = true;
+            }    
+
+            if (erro) {
+                return false;
+            } else {
+               document.forms["meuFormulario"].submit();
+            }  
+            */        
+        }
+         function clean()
+         {
+            digitoAnterior = "";
+            document.getElementById("operacao_text").value = "";
+             return false;
+         }
+
+         function calcula()
+         {
+            var operacao = document.getElementById("operacao_text").value;
+            operacao = eval(operacao);
+
+            document.getElementById("operacao_text").value = operacao;
+             return false;
+         }
+        
+        
+    </script>       
+</head>
+    
+
+<body onload="capturaTeclas()">
+    <center>
+        <form name="meuFormulario" id="meuFormulario" onsubmit="return false;" action="calcula.jsp" method="post">
+                         
+            <fieldset>
+              
+                <div>
+                                                                             
+                    <input name="operacao_text" disabled type="text" id="operacao_text"  
+                    />
+                
+                </div>                
+                                                   
+                <table border="1">
+                    <tr>
+                        <td>
+                            <button class="botao" id="botao_1" onclick="valida(1)" type="button">
+                                <option value="1">1</option>                   
+                            </button>
+                        </td>
+                    
+                    
+                        <td>
+                            <button class="botao" id="botao_2" onclick="valida(2)" type="button">
+                                <option value="2">2</option>
+                            </button>
+                        </td>
+
+                        <td>
+                            <button class="botao" id="botao_3" onclick="valida(3)" type="button">
+                                <option value="3">3</option>
+                            </button>
+                        </td>
+
+                        <td>
+                            <button class="botao" id="botao_4" onclick="valida(4)" type="button">
+                                <option value="4">4</option>
+                            </button>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        
+                        <td>
+                            <button class="botao" id="botao_5" onclick="valida(5)" type="button">
+                                <option value="5">5</option>
+                            </button>
+                        </td>
+                    
+                        <td>
+                            <button class="botao" id="botao_6" onclick="valida(6)" type="button">
+                                <option value="6">6</option>
+                            </button>
+                        </td>
+
+                        <td>
+                            <button class="botao" id="botao_7" onclick="valida(7)" type="button">
+                                <option value="7">7</option>
+                            </button>
+                        </td>
+
+                        <td>
+                            <button class="botao" id="botao_8" onclick="valida(8)" type="button">
+                                <option value="8">8</option>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        
+
+                        <td>
+                            <button class="botao" id="botao_9" onclick="valida(9)" type="button">
+                                <option value="9">9</option>
+                            </button>
+                        </td>
+
+                        <td>
+                            <button class="botao" id="botao_0" onclick="valida(0)" type="button">
+                                <option value="0">0</option>
+                            </button>
+                        </td>
+                        
+                    
+                                            
+                        <td>
+                            <button class="botao" id="botao_mais" onclick="valida('+')" type="button">
+
+                                <option value="+">+ </option>
+                                                                                                                                        
+                            </button>
+                        </td>
+                                                            
+                        <td>
+                            <button class="botao" id="botao_menos" onclick="valida('-')" type="button">
+
+                                <option value="-">- </option>
+
+                            </button>
+                        </td>
+                                                          
+                    </tr>        
+                    
+                    <tr>
+                        <td>
+
+                            <button class="botao" id="botao_x" onclick="valida('*')" type="button">
+
+                                <option value="*">x </option>
+
+                            </button>
+                        </td>
+
+                        <td>
+
+                            <button class="botao" id="botao_/" onclick="valida('/')" type="button">
+
+                                <option value="/">/ </option>
+
+                            </button>
+                        </td>
+
+                        <td>
+                            <button class="botao" onclick="calcula()" type="button">=</button>
+                        </td>
+
+                        <td>
+                            <button class="botao" onclick="clean()">C</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><div style="height: 200px; color: black rgb(300, 255, 0)" id="mensagem" class="mensagem"></div></td>
+                    </tr>                                        
+                </table>
+
+            </fieldset>
+
+        
+            
+                    
+            </div>
+        </form>
+        
+    </center>
+
+
+</body>
+</html>
